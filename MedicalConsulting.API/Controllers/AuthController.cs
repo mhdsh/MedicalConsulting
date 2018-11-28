@@ -35,7 +35,8 @@ namespace MedicalConsulting.API.Controllers
 
             var userToCreate = new User
             {
-                Username = userForRegisterDto.Username
+                Username = userForRegisterDto.Username,
+                IsAdmin = false
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
@@ -54,7 +55,8 @@ namespace MedicalConsulting.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                new Claim(ClaimTypes.Name, userFromRepo.Username),
+                new Claim(ClaimTypes.Role, userFromRepo.IsAdmin.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8

@@ -30,9 +30,20 @@ register(model: any) {
   return this.http.post(this.baseUrl + 'register', model);
 }
 
+registerAdmin(model: any) {
+  return this.http.post('http://localhost:5000/api/dashboard/register', model);
+}
+
 loggedIn() {
   const token = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token);
+}
+
+isAdmin() {
+  if (this.decodedToken.role === 'True') {
+    return true;
+  }
+  return false;
 }
 
 }

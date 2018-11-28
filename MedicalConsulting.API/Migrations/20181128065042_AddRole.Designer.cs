@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalConsulting.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181121190413_AddUserEntity")]
-    partial class AddUserEntity
+    [Migration("20181128065042_AddRole")]
+    partial class AddRole
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,8 @@ namespace MedicalConsulting.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsAdmin");
 
                     b.Property<byte[]>("PasswordHash");
 
