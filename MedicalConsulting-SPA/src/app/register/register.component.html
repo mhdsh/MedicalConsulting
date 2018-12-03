@@ -11,7 +11,7 @@
       name="password" [(ngModel)]="model.password" placeholder="Password">
   </div>
   <div class="form-group text-center">
-    <button class="btn btn-success mr-2" type="submit">Register</button>
-    <button class="btn btn-default" type="button" (click)="cancel()" >Cancel</button>
+    <button class="btn btn-success ml-2" type="submit">التسجيل</button>
+    <a class="btn btn-default" type="button" (click)="cancel()" [routerLink]="['']">إلغاء</a>
   </div>
 </form>

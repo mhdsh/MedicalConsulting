@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.name}}">
+        <div class="card-body">
+          <div>
+            <strong>الاسم</strong>
+            <p>{{user.name}}</p>
+          </div>
+          <div>
+            <strong>العضوية</strong>
+            <p>{{role}}</p>
+          </div>
+          <div>
+              <strong>آخر ظهور</strong>
+              <p>{{user.lastActive}}</p>
+          </div>
+          <div>
+              <strong>تاريخ إنشاء الحساب</strong>
+              <p>{{user.created}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset>
+          <tab heading="المعلومات الشخصية">
+            <div class="mt-4">
+              <p><strong>الإسم: </strong> {{user.name}} </p>
+              <p><strong>الإيميل: </strong> {{user.email}}</p>
+              <p><strong>رقم الهاتف: </strong> {{user.phoneNumber}}</p>
+              <p><strong>الجنس: </strong> {{user.gender}}</p>
+              <p><strong>العمر: </strong> {{user.email}}</p>
+              <p><strong>البلد: </strong> {{user.country}}</p>
+            </div>
+          </tab>
+          <tab heading="التاريخ الطبي">
+            <div class="mt-4">
+              <h4>المعلومات الطبية:</h4>
+              <p>{{user.medicalHistory}}</p>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

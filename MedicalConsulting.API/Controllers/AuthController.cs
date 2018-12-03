@@ -56,6 +56,7 @@ namespace MedicalConsulting.API.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username),
+                new Claim("name", userFromRepo.Name),
                 new Claim(ClaimTypes.Role, userFromRepo.IsAdmin.ToString())
             };
 

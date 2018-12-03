@@ -1,3 +1,26 @@
 .dropdown-toggle, .dropdown-item {
     cursor: pointer;
 }
+
+.container {
+    display: block;
+}
+
+.navbar-brand {
+    margin-left: unset !important;
+}
+
+ul {
+    margin-right: unset !important;
+}
+
+.dropdown {
+    float: left;
+    line-height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+form {
+    float: left
+}
