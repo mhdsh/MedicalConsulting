@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AutoMapper;
 using MedicalConsulting.API.Data;
 using MedicalConsulting.API.Dtos;
 using MedicalConsulting.API.Models;
@@ -13,30 +14,30 @@ namespace MedicalConsulting.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public DashboardController(IAuthRepository repo, IConfiguration config)
+        public DashboardController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserForRegisterAdminDto userForRegisterAdmin)
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterAdmin.Username = userForRegisterAdmin.Username.ToLower();
+            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            if (await _repo.UserExists(userForRegisterAdmin.Username))
+            if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
-            var userToCreate = new User
-            {
-                Username = userForRegisterAdmin.Username,
-                IsAdmin = userForRegisterAdmin.IsAdmin
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterAdmin.Password);
+            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailDto>(createdUser);
+
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, userToReturn);
         }
     }
 }

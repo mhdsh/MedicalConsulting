@@ -1,24 +1,115 @@
-<div class="container">
-  <form #registerForm="ngForm" (ngSubmit)="register()">
-    <h2 class="text-center text-primary">Sign Up</h2>
-    <hr>
-  
-    <div class="form-group">
-      <input type="text" class="form-control" required
-        name="username" [(ngModel)]="model.username" placeholder="Username">
-    </div>
-    <div class="form-group">
-      <input type="password" class="form-control" required
-        name="password" [(ngModel)]="model.password" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <input type="radio" class="form-control" 
-      value="true" name="isadmin" [(ngModel)]="model.isadmin"> <label for="admin">Admin</label>
-      <input type="radio" class="form-control" 
-      value="false" name="isadmin" [(ngModel)]="model.isadmin"> <label for="admin">User</label>
-    </div>
-    <div class="form-group text-center">
-      <button class="btn btn-success mr-2" type="submit">Register</button>
-    </div>
-  </form>
+<div class="row justify-content-center mt-4">
+  <div class="col-4">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <h2 class="text-center text-primary">تسجيل عضو جديد</h2>
+        <hr>
+        
+        <div class="form-group">
+          <label class="control-label" style="margin-right:10px">العضو:  </label>
+          <label class="radio-inline">
+            <input class="mr-3" type="radio" value="true" formControlName="isAdmin"> أدمن
+          </label>
+          <label class="radio-inline ml-3">
+            <input class="mr-3" type="radio" value="false" formControlName="isAdmin"> مستخدم
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" style="margin-right:10px">العضو:  </label>
+          <label class="radio-inline">
+            <input class="mr-3" type="radio" value="male" formControlName="gender"> ذكر
+          </label>
+          <label class="radio-inline ml-3">
+            <input class="mr-3" type="radio" value="female" formControlName="gender"> أنثى
+          </label>
+        </div>
+      
+        <div class="form-group">
+          <input type="text" class="form-control is-invalid"
+            [ngClass]="{'is-invalid': registerForm.get('username').errors
+              && registerForm.get('username').touched}"
+            formControlName="username" placeholder="اسم المستخدم">
+          <div class="invalid-feedback">رجاءً ضع اسم المستخدم</div>
+        </div>
+
+        <div class="form-group">
+          <input [ngClass]="{'is-invalid': registerForm.get('name').errors && registerForm.get('name').touched}" class="form-control"
+            placeholder="الاسم" formControlName="name">
+          <div class="invalid-feedback" *ngIf="registerForm.get('name').touched && registerForm.get('name').hasError('required')">رجاءً ضع الاسم</div>
+        </div>
+
+        <div class="form-group">
+          <input [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}" class="form-control"
+            placeholder="مثال: example@email.com" formControlName="email" type="email">
+          <div class="invalid-feedback" *ngIf="registerForm.get('email').touched && registerForm.get('email').hasError('required')">رجاءً ضع الإيميل</div>
+          <div class="invalid-feedback" *ngIf="registerForm.get('email').touched && registerForm.get('email').hasError('email')">الإيميل غير صحيح</div>
+        </div>
+
+        <div class="form-group">
+          <input [ngClass]="{'is-invalid': registerForm.get('phoneNumber').errors && registerForm.get('phoneNumber').touched}" class="form-control"
+            placeholder="رقم الهاتف" formControlName="phoneNumber" >
+          <div class="invalid-feedback" *ngIf="registerForm.get('phoneNumber').touched && registerForm.get('phoneNumber').hasError('required')">رجاءً ضع رقم الهاتف</div>
+        </div>
+
+        <div class="form-group">
+          <input [ngClass]="{'is-invalid': registerForm.get('dateOfBirth').errors && registerForm.get('dateOfBirth').touched}" class="form-control"
+            placeholder="Date of Birth" formControlName="dateOfBirth" type="text" bsDatepicker [bsConfig]="bsConfig" >
+          <div class="invalid-feedback" *ngIf="registerForm.get('dateOfBirth').touched && registerForm.get('dateOfBirth').hasError('required')">رجاءً حدد تاريخ الولادة</div>
+        </div>
+
+        <div class="form-group">
+          <input [ngClass]="{'is-invalid': registerForm.get('country').errors && registerForm.get('country').touched}" class="form-control"
+            placeholder="البلد" formControlName="country">
+          <div class="invalid-feedback" *ngIf="registerForm.get('country').touched && registerForm.get('country').hasError('required')">رجاءً أدخل البلد</div>
+        </div>
+
+        <div class="form-group">
+          <textarea [ngClass]="{'is-invalid': registerForm.get('medicalHistory').errors && registerForm.get('medicalHistory').touched}" class="form-control"
+            rows="5" placeholder="التاريخ الطبي" formControlName="medicalHistory"></textarea>
+          <div class="invalid-feedback" *ngIf="registerForm.get('medicalHistory').touched && registerForm.get('medicalHistory').hasError('required')">رجاءً أدخل التاريخ الطبي</div>
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control"
+          [ngClass]="{'is-invalid': registerForm.get('password').errors
+            && registerForm.get('password').touched}"
+          formControlName="password" placeholder="كلمة السر">
+          <div class="invalid-feedback" 
+            *ngIf="registerForm.get('password').hasError('required')
+            && registerForm.get('password').touched">رجاءً ضع كلمة المرور</div>
+            <div class="invalid-feedback" 
+              *ngIf="registerForm.get('password').hasError('minlength')
+              && registerForm.get('password').touched">كلمة المرور يجب أن تكون على الأقل أربعة حروف</div>
+            <div class="invalid-feedback" 
+            *ngIf="registerForm.get('password').hasError('maxlength')
+            && registerForm.get('password').touched">كلمة المرور يجب أن لا تتجاوز ثمانية حروف</div>
+        </div>
+
+        <div class="form-group">
+          <input type="password"
+            [ngClass]="{'is-invalid': registerForm.get('confirmPassword').errors
+             && registerForm.get('confirmPassword').touched
+             || registerForm.hasError('mismatch')
+             && registerForm.get('confirmPassword').touched}"
+            class="form-control"
+            formControlName="confirmPassword" placeholder="تأكيد كلمة السر">
+            <div class="invalid-feedback" 
+              *ngIf="registerForm.get('confirmPassword').hasError('required')
+              && registerForm.get('confirmPassword').touched">رجاءً ضع كلمة المرور</div>
+              <div class="invalid-feedback" 
+                *ngIf="registerForm.hasError('mismatch')
+                && registerForm.get('confirmPassword').touched">كلمة السر يجب أن تكون متطابقة</div>
+        </div>
+
+        <ngx-recaptcha2 #captchaElem
+          [siteKey] = "reCaptchakey"
+          formControlName="recaptcha">
+        </ngx-recaptcha2>
+
+        <div class="form-group text-center mt-3">
+          <button class="btn btn-success ml-2" [disabled]="!registerForm.valid" type="submit">التسجيل</button>
+          <a class="btn btn-default" type="button" [routerLink]="['']">إلغاء</a>
+        </div>
+      </form>
+  </div>
 </div>

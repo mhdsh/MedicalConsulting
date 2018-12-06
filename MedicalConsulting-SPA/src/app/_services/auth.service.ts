@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
   baseUrl = environment.apiUrl;
   jwtHelper = new JwtHelperService();
   decodedToken: any;
+  siteKey = '6LdGCn8UAAAAAKLbuPsbgxLFI1ztM93ewmfAe6Hh';
 
 constructor(private http: HttpClient) { }
 
@@ -27,12 +29,12 @@ login(model: any) {
   );
 }
 
-register(model: any) {
-  return this.http.post(this.baseUrl + 'auth/register', model);
+register(user: User) {
+  return this.http.post(this.baseUrl + 'auth/register', user);
 }
 
-registerAdmin(model: any) {
-  return this.http.post(this.baseUrl + 'dashboard/register', model);
+registerAdmin(user: User) {
+  return this.http.post(this.baseUrl + 'dashboard/register', user);
 }
 
 loggedIn() {
@@ -45,6 +47,10 @@ isAdmin() {
     return true;
   }
   return false;
+}
+
+reCaptcha(url: string, response: any) {
+  this.http.post(url, response);
 }
 
 }
