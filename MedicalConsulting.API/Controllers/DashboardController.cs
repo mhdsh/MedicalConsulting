@@ -1,8 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MedicalConsulting.API.Data;
 using MedicalConsulting.API.Dtos;
 using MedicalConsulting.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -10,15 +14,18 @@ namespace MedicalConsulting.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         private readonly IAuthRepository _repo;
+        private readonly IConsultingRepository _consultingRepo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public DashboardController(IAuthRepository repo, IConfiguration config, IMapper mapper)
+        public DashboardController(IAuthRepository repo, IConsultingRepository consultingRepo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
+            _consultingRepo = consultingRepo;
             _config = config;
             _mapper = mapper;
         }
@@ -39,5 +46,41 @@ namespace MedicalConsulting.API.Controllers
 
             return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, userToReturn);
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetPosts()
+        {
+            var posts = await _consultingRepo.GetPosts();
+
+            var postsToReturn = _mapper.Map<IEnumerable<PostToListDto>>(posts);
+
+            return Ok(posts);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}", Name = "GetPost")]
+        public async Task<IActionResult> GetPost(int id)
+        {
+            var post = await _consultingRepo.GetPost(id);
+
+            var postToReturn = _mapper.Map<PostForDetailDto>(post);
+
+            return Ok(postToReturn);
+        }
+
+        [HttpPut("add")]
+        public async Task<IActionResult> AddPost(PostForAddDto postForAddDto)
+        {
+            var post = _mapper.Map<Post>(postForAddDto);
+
+            _consultingRepo.Add<Post>(post);
+
+            if (await _consultingRepo.SaveAll())
+              return NoContent();
+
+            throw new Exception($"Adding post failed");
+        }
+
     }
 }

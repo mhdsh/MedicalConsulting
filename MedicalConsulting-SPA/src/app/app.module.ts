@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { SidebarModule } from 'ng-sidebar';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -28,6 +29,8 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { SidebarComponent } from './_dashboard/sidebar/sidebar.component';
+import { AdminLayoutComponent } from './_dashboard/admin-layout/admin-layout.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -44,7 +47,9 @@ export function tokenGetter() {
       MessagesComponent,
       RegisterAdminComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      SidebarComponent,
+      AdminLayoutComponent
    ],
    imports: [
       BrowserModule,

@@ -18,6 +18,9 @@ namespace MedicalConsulting.API.Helpers
                 });
             CreateMap<UserForUpdateDto, User>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<Post, PostToListDto>();
+            CreateMap<Post, PostForDetailDto>();
+            CreateMap<PostForAddDto, Post>();
         }
     }
 }

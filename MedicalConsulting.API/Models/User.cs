@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MedicalConsulting.API.Models
 {
@@ -19,5 +20,6 @@ namespace MedicalConsulting.API.Models
         public string Country { get; set; }
         public string MedicalHistory { get; set; }
         public string photoUrl { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }

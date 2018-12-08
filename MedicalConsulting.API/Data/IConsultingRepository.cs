@@ -11,5 +11,7 @@ namespace MedicalConsulting.API.Data
          Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
+         Task<IEnumerable<Post>> GetPosts();
+         Task<Post> GetPost(int id);
     }
 }
