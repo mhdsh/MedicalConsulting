@@ -3,14 +3,16 @@ using System;
 using MedicalConsulting.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MedicalConsulting.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181208111511_EditPostTable")]
+    partial class EditPostTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,6 @@ namespace MedicalConsulting.API.Migrations
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsMain");
-
-                    b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 
@@ -48,8 +48,6 @@ namespace MedicalConsulting.API.Migrations
                     b.Property<string>("Excerpt");
 
                     b.Property<string>("PhotoUrl");
-
-                    b.Property<string>("PublicIdPhoto");
 
                     b.Property<string>("Title");
 
@@ -103,8 +101,6 @@ namespace MedicalConsulting.API.Migrations
                     b.Property<byte[]>("PasswordSalt");
 
                     b.Property<string>("PhoneNumber");
-
-                    b.Property<string>("PublicIdPhoto");
 
                     b.Property<string>("Username");
 

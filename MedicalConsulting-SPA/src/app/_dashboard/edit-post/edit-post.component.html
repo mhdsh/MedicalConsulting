@@ -1,0 +1,16 @@
+<app-side-nav dir="rtl">
+    <div class="container justify-content-center mt-4">
+        <h2 class="text-center text-primary">تعديل منشور</h2>
+        <div class="tab-panel">
+          <tabset>
+            <tab heading="إضافة منشور جديد">
+              <form #editForm="ngForm" id="editForm" (ngSubmit)="updatePost()">
+                <input type="text" class="form-control mt-2" placeholder="العنوان" name="title" [(ngModel)]="post.title">
+                <textarea type="text" rows="7" class="form-control mt-2" placeholder="الوصف" name="description" [(ngModel)]="post.description"> </textarea>
+                <button class="btn btn-success mt-2" type="submit">تعديل</button>
+              </form>
+            </tab>
+          </tabset>
+        </div>
+    </div>
+  </app-side-nav>

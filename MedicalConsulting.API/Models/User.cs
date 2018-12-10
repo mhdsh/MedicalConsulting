@@ -20,6 +20,7 @@ namespace MedicalConsulting.API.Models
         public string Country { get; set; }
         public string MedicalHistory { get; set; }
         public string photoUrl { get; set; }
+        public string PublicIdPhoto { get; set; }
         public ICollection<Post> Posts { get; set; }
     }
 }

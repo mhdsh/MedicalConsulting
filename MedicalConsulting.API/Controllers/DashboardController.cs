@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using MedicalConsulting.API.Data;
@@ -80,6 +81,35 @@ namespace MedicalConsulting.API.Controllers
               return NoContent();
 
             throw new Exception($"Adding post failed");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(int id) 
+        {
+            var post = await _consultingRepo.GetPost(id);
+            
+            _consultingRepo.Delete<Post>(post);
+
+            if (await _consultingRepo.SaveAll())
+              return NoContent();
+
+            throw new Exception($"Deleting post failed");
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, PostForUpdateDto postForUpdateDto)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var postFromRepo = await _consultingRepo.GetPost(postForUpdateDto.Id);
+
+            _mapper.Map(postForUpdateDto, postFromRepo);
+
+            if (await _consultingRepo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating post {id} failed on save");
         }
 
     }

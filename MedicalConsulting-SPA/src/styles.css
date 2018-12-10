@@ -7,6 +7,11 @@
 @import '../node_modules//alertifyjs/build/css/themes/bootstrap.min.css';
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
+html,
+body {
+  height: 100%;
+}
+
 body {
     text-align: right;
 }
@@ -56,3 +61,4 @@ body {
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
+body { margin: 0; }

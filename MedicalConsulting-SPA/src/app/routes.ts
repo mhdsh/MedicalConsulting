@@ -14,6 +14,11 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AdminLayoutComponent } from './_dashboard/admin-layout/admin-layout.component';
+import { AddPostComponent } from './_dashboard/add-post/add-post.component';
+import { PostsComponent } from './_dashboard/posts/posts.component';
+import { PostsResolver } from './_resolvers/posts.resolver';
+import { EditPostComponent } from './_dashboard/edit-post/edit-post.component';
+import { EditPostResolver } from './_resolvers/edit-post.resolver';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -23,6 +28,9 @@ export const appRoutes: Routes = [
         canActivate: [AuthAdminGuard],
         children: [
             {path: '', component: AdminLayoutComponent},
+            {path: 'posts', component: PostsComponent, resolve: {posts: PostsResolver}},
+            {path: 'add', component: AddPostComponent},
+            {path: 'update/:id', component: EditPostComponent, resolve: {post: EditPostResolver}},
             {path: 'register', component: RegisterAdminComponent},
             {path: 'members', component: MemberListComponent, resolve: {users: MemberListResolver}},
             {path: 'members/:id', component: MemberDetailComponent, resolve: {user: MemberDetailResolver}},

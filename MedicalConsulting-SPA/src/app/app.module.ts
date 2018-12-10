@@ -5,7 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
-import { SidebarModule } from 'ng-sidebar';
+import { JwtModule } from '@auth0/angular-jwt';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import {MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -22,7 +25,6 @@ import { AuthGuard } from './_guards/auth.guard';
 import { RegisterAdminComponent } from './_dashboard/registerAdmin/registerAdmin.component';
 import { AuthAdminGuard } from './_guards/auth.admin.guard';
 import { UserService } from './_services/user.service';
-import { JwtModule } from '@auth0/angular-jwt';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
@@ -31,6 +33,14 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { SidebarComponent } from './_dashboard/sidebar/sidebar.component';
 import { AdminLayoutComponent } from './_dashboard/admin-layout/admin-layout.component';
+import { AddPostComponent } from './_dashboard/add-post/add-post.component';
+import { PostService } from './_services/post.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SideNavComponent } from './_dashboard/side-nav/side-nav.component';
+import { PostsComponent } from './_dashboard/posts/posts.component';
+import { PostsResolver } from './_resolvers/posts.resolver';
+import { EditPostComponent } from './_dashboard/edit-post/edit-post.component';
+import { EditPostResolver } from './_resolvers/edit-post.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -49,7 +59,11 @@ export function tokenGetter() {
       MemberDetailComponent,
       MemberEditComponent,
       SidebarComponent,
-      AdminLayoutComponent
+      AdminLayoutComponent,
+      AddPostComponent,
+      SideNavComponent,
+      PostsComponent,
+      EditPostComponent
    ],
    imports: [
       BrowserModule,
@@ -67,7 +81,17 @@ export function tokenGetter() {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
+      BrowserAnimationsModule,
+      LayoutModule,
+      MatToolbarModule,
+      MatButtonModule,
+      MatSidenavModule,
+      MatIconModule,
+      MatListModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule
    ],
    providers: [
       AuthService,
@@ -76,9 +100,12 @@ export function tokenGetter() {
       AuthGuard,
       AuthAdminGuard,
       UserService,
+      PostService,
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
+      PostsResolver,
+      EditPostResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [
