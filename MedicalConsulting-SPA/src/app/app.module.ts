@@ -9,6 +9,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule } from '@angular/material';
 import {MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -41,6 +42,7 @@ import { PostsComponent } from './_dashboard/posts/posts.component';
 import { PostsResolver } from './_resolvers/posts.resolver';
 import { EditPostComponent } from './_dashboard/edit-post/edit-post.component';
 import { EditPostResolver } from './_resolvers/edit-post.resolver';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -63,7 +65,8 @@ export function tokenGetter() {
       AddPostComponent,
       SideNavComponent,
       PostsComponent,
-      EditPostComponent
+      EditPostComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
@@ -71,6 +74,7 @@ export function tokenGetter() {
       FormsModule,
       ReactiveFormsModule,
       NgxCaptchaModule,
+      FileUploadModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),

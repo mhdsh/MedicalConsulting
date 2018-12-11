@@ -75,6 +75,10 @@ namespace MedicalConsulting.API.Controllers
         {
             var post = _mapper.Map<Post>(postForAddDto);
 
+            // var userFromRepo = await _consultingRepo.GetUser(postForAddDto.UserId);
+
+            // userFromRepo.Posts.Add(post);
+
             _consultingRepo.Add<Post>(post);
 
             if (await _consultingRepo.SaveAll())

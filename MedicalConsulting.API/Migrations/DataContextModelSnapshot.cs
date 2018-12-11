@@ -47,11 +47,11 @@ namespace MedicalConsulting.API.Migrations
 
                     b.Property<string>("Excerpt");
 
-                    b.Property<string>("PhotoUrl");
-
                     b.Property<string>("PublicIdPhoto");
 
                     b.Property<string>("Title");
+
+                    b.Property<string>("Url");
 
                     b.Property<int?>("UserId");
 

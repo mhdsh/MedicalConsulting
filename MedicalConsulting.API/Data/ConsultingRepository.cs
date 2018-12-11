@@ -23,6 +23,13 @@ namespace MedicalConsulting.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+            return photo;
+        }
+
         public async Task<Post> GetPost(int id)
         {
             var post = await _context.Posts.Include(p => p.PostPhotos).FirstOrDefaultAsync(p => p.Id == id);

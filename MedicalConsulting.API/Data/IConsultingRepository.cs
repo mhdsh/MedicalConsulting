@@ -13,5 +13,6 @@ namespace MedicalConsulting.API.Data
          Task<User> GetUser(int id);
          Task<IEnumerable<Post>> GetPosts();
          Task<Post> GetPost(int id);
+         Task<Photo> GetPhoto(int id);
     }
 }

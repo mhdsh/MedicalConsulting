@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalConsulting.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181208111511_EditPostTable")]
-    partial class EditPostTable
+    [Migration("20181211162900_RestartDatabase")]
+    partial class RestartDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,8 @@ namespace MedicalConsulting.API.Migrations
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsMain");
+
+                    b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 
@@ -47,9 +49,11 @@ namespace MedicalConsulting.API.Migrations
 
                     b.Property<string>("Excerpt");
 
-                    b.Property<string>("PhotoUrl");
+                    b.Property<string>("PublicIdPhoto");
 
                     b.Property<string>("Title");
+
+                    b.Property<string>("Url");
 
                     b.Property<int?>("UserId");
 
@@ -101,6 +105,8 @@ namespace MedicalConsulting.API.Migrations
                     b.Property<byte[]>("PasswordSalt");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("PublicIdPhoto");
 
                     b.Property<string>("Username");
 

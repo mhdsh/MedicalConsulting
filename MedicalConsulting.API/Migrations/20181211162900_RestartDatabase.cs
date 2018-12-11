@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MedicalConsulting.API.Migrations
 {
-    public partial class AddPosts : Migration
+    public partial class RestartDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,11 +16,52 @@ namespace MedicalConsulting.API.Migrations
                     Url = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
-                    IsMain = table.Column<bool>(nullable: false)
+                    IsMain = table.Column<bool>(nullable: false),
+                    PublicId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Photos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<byte[]>(nullable: true),
+                    PasswordSalt = table.Column<byte[]>(nullable: true),
+                    IsAdmin = table.Column<bool>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    LastActive = table.Column<DateTime>(nullable: false),
+                    Country = table.Column<string>(nullable: true),
+                    MedicalHistory = table.Column<string>(nullable: true),
+                    photoUrl = table.Column<string>(nullable: true),
+                    PublicIdPhoto = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Values",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Values", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,6 +74,8 @@ namespace MedicalConsulting.API.Migrations
                     Description = table.Column<string>(nullable: true),
                     Excerpt = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
+                    Url = table.Column<string>(nullable: true),
+                    PublicIdPhoto = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -87,10 +130,16 @@ namespace MedicalConsulting.API.Migrations
                 name: "PostPhotos");
 
             migrationBuilder.DropTable(
+                name: "Values");
+
+            migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
