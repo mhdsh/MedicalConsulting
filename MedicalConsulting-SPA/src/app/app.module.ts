@@ -43,6 +43,8 @@ import { PostsResolver } from './_resolvers/posts.resolver';
 import { EditPostComponent } from './_dashboard/edit-post/edit-post.component';
 import { EditPostResolver } from './_resolvers/edit-post.resolver';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { PostListComponent } from './posts/post-list/post-list.component';
+import { PostCardComponent } from './posts/post-card/post-card.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -66,7 +68,9 @@ export function tokenGetter() {
       SideNavComponent,
       PostsComponent,
       EditPostComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      PostListComponent,
+      PostCardComponent
    ],
    imports: [
       BrowserModule,

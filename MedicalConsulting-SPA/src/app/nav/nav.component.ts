@@ -26,7 +26,11 @@ export class NavComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     }, () => {
-      this.router.navigate(['/members']);
+      if (this.authService.isAdmin()) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.router.navigate(['/members']);
+      }
     });
   }
 

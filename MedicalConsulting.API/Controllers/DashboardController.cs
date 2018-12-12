@@ -65,6 +65,10 @@ namespace MedicalConsulting.API.Controllers
         {
             var post = await _consultingRepo.GetPost(id);
 
+            post.visits += 1;
+
+            await _consultingRepo.SaveAll();
+
             var postToReturn = _mapper.Map<PostForDetailDto>(post);
 
             return Ok(postToReturn);

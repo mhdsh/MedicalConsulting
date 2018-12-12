@@ -12,6 +12,7 @@ namespace MedicalConsulting.API.Models
         public DateTime Created { get; set; }
         public string Url { get; set; }
         public string PublicIdPhoto { get; set; }
+        public int visits { get; set; }
 
         public IList<PostPhoto> PostPhotos { get; set; }
     }

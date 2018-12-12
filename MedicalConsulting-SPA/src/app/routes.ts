@@ -19,9 +19,10 @@ import { PostsComponent } from './_dashboard/posts/posts.component';
 import { PostsResolver } from './_resolvers/posts.resolver';
 import { EditPostComponent } from './_dashboard/edit-post/edit-post.component';
 import { EditPostResolver } from './_resolvers/edit-post.resolver';
+import { PostListComponent } from './posts/post-list/post-list.component';
 
 export const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
+    {path: '', component: PostListComponent, resolve: {posts: PostsResolver}},
     {
         path: 'dashboard',
         runGuardsAndResolvers: 'always',

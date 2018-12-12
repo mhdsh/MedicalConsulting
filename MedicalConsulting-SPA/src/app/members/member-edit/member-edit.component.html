@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.name}}">
+        <img class="card-img-top img-thumbnail" src="{{user.photoUrl || '../../../../../assets/user.png" alt="{{user.name}}">
         <div class="card-body">
           <div>
             <strong>الاسم</strong>
@@ -24,7 +24,7 @@
           </div>
           <div>
               <strong>تاريخ إنشاء الحساب</strong>
-              <p>{{user.created}}</p>
+              <p>{{user.created | date}}</p>
           </div>
         </div>
         <div class="card-footer">

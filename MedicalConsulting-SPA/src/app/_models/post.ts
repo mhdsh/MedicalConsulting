@@ -5,4 +5,5 @@ export interface Post {
     excerpt: string;
     url: string;
     publicPhotoId: number;
+    visits: number;
 }
