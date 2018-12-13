@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MedicalConsulting.API.Helpers;
 using MedicalConsulting.API.Models;
 
 namespace MedicalConsulting.API.Data
@@ -12,6 +13,7 @@ namespace MedicalConsulting.API.Data
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
          Task<IEnumerable<Post>> GetPosts();
+         Task<PagedList<Post>> GetPostsForPagination(PostParams userParams);
          Task<Post> GetPost(int id);
          Task<Photo> GetPhoto(int id);
     }

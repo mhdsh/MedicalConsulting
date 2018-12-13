@@ -38,7 +38,7 @@ export class RegisterAdminComponent implements OnInit {
       dateOfBirth: [null, Validators.required],
       country: ['', Validators.required],
       medicalHistory: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
       confirmPassword: ['', Validators.required],
       recaptcha: ['', Validators.required]
     }, {validator: this.passwordMatchValidator});

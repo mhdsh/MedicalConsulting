@@ -20,9 +20,14 @@ import { PostsResolver } from './_resolvers/posts.resolver';
 import { EditPostComponent } from './_dashboard/edit-post/edit-post.component';
 import { EditPostResolver } from './_resolvers/edit-post.resolver';
 import { PostListComponent } from './posts/post-list/post-list.component';
+import { PostsHomeResolver } from './_resolvers/posts-home.resolver';
+import { PostDetailComponent } from './posts/post-detail/post-detail.component';
+import { PostDetailResolver } from './_resolvers/post-detail.resolver';
+import { UsersComponent } from './_dashboard/users/users.component';
 
 export const appRoutes: Routes = [
-    {path: '', component: PostListComponent, resolve: {posts: PostsResolver}},
+    {path: '', component: PostListComponent, resolve: {posts: PostsHomeResolver}},
+    {path: 'posts/:id', component: PostDetailComponent, resolve: {post: PostDetailResolver}},
     {
         path: 'dashboard',
         runGuardsAndResolvers: 'always',
@@ -33,8 +38,8 @@ export const appRoutes: Routes = [
             {path: 'add', component: AddPostComponent},
             {path: 'update/:id', component: EditPostComponent, resolve: {post: EditPostResolver}},
             {path: 'register', component: RegisterAdminComponent},
-            {path: 'members', component: MemberListComponent, resolve: {users: MemberListResolver}},
-            {path: 'members/:id', component: MemberDetailComponent, resolve: {user: MemberDetailResolver}},
+            {path: 'users', component: UsersComponent, resolve: {users: MemberListResolver}},
+            {path: 'users/:id', component: MemberDetailComponent, resolve: {user: MemberDetailResolver}},
         ]
     },
     {
@@ -43,9 +48,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'member/edit', component: MemberEditComponent,
-                resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
-            {path: 'messages', component: MessagesComponent},
-            {path: 'lists', component: ListsComponent},
+                resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]}
         ]
     },
     {path: 'register', component: RegisterComponent},

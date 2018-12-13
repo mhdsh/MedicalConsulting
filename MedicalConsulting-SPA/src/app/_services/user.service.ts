@@ -20,6 +20,10 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
+  deleteUser(id: number) {
+    return this.http.delete(this.baseUrl + 'Users/' + id);
+  }
+
   updateUser(id: number, user: User) {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }

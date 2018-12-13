@@ -122,5 +122,51 @@ namespace MedicalConsulting.API.Controllers
 
 
         }
+
+        [HttpPost("update/{id}")]
+        public async Task<IActionResult> UpdatePhotoForPost(int id, [FromForm]PhotoForCreationDto photoForCreationDto)
+        {
+            var postFromRepo = await _repo.GetPost(id);
+
+            if (postFromRepo.PublicIdPhoto != null)
+            {
+                var deleteParams = new DeletionParams(postFromRepo.PublicIdPhoto);
+
+                _cloudinary.Destroy(deleteParams);
+            }
+
+            var file = photoForCreationDto.File;
+
+            var uploadResult = new ImageUploadResult();
+
+            if (file.Length > 0) 
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.Name, stream),
+                        Transformation = new Transformation().Width(500).Height(500).Crop("fill")
+                    };
+
+                    uploadResult = _cloudinary.Upload(uploadParams);
+                }
+            }
+
+            // photoForCreationDto.Url = uploadResult.Uri.ToString();
+            // photoForCreationDto.PublicId = uploadResult.PublicId;
+
+            // var photo = _mapper.Map<Photo>(photoForCreationDto);
+
+            postFromRepo.Url = uploadResult.Uri.ToString();
+            postFromRepo.PublicIdPhoto = uploadResult.PublicId;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            return BadRequest("Could not add the photo");
+
+
+        }
 }
 }

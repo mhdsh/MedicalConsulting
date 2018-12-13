@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MedicalConsulting.API.Helpers;
 using MedicalConsulting.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +44,13 @@ namespace MedicalConsulting.API.Data
             var posts = await _context.Posts.ToListAsync();
 
             return posts;
+        }
+
+        public async Task<PagedList<Post>> GetPostsForPagination(PostParams userParams)
+        {
+            var posts = _context.Posts.OrderByDescending(p => p.visits);
+
+            return await PagedList<Post>.CreateAsync(posts, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<User> GetUser(int id)

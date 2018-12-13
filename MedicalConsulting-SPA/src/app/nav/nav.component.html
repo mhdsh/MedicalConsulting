@@ -2,18 +2,6 @@
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/home']">المساعد الطبي</a>
 
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active" >
-          <a class="nav-link" [routerLink]="['/members']">Matches</a>
-        </li>
-        <li class="nav-item"  routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/lists']">Listes</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/messages']" >Messages</a>
-        </li>
-      </ul>
-
       <div *ngIf="loggedIn()" class="dropdown" dropdown>
         <a class="dropdown-toggle text-light" dropdownToggle>
           مرحباً {{authService.decodedToken?.name | titlecase}}
@@ -21,6 +9,7 @@
       
         <div class="dropdown-menu mt-3" *dropdownMenu>
           <a class="dropdown-item" [routerLink]="['/member/edit']"><i class="fa fa-user"></i> تعديل الحساب</a>
+          <a class="dropdown-item" *ngIf="authService.isAdmin" [routerLink]="['/dashboard']"><i class="fa fa-gear"></i> لوحة التحكم</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> تسجيل الخروج</a>
         </div>

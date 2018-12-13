@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -45,6 +45,10 @@ import { EditPostResolver } from './_resolvers/edit-post.resolver';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCardComponent } from './posts/post-card/post-card.component';
+import { PostsHomeResolver } from './_resolvers/posts-home.resolver';
+import { PostDetailResolver } from './_resolvers/post-detail.resolver';
+import { PostDetailComponent } from './posts/post-detail/post-detail.component';
+import { UsersComponent } from './_dashboard/users/users.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -70,7 +74,9 @@ export function tokenGetter() {
       EditPostComponent,
       PhotoEditorComponent,
       PostListComponent,
-      PostCardComponent
+      PostCardComponent,
+      PostDetailComponent,
+      UsersComponent
    ],
    imports: [
       BrowserModule,
@@ -79,6 +85,7 @@ export function tokenGetter() {
       ReactiveFormsModule,
       NgxCaptchaModule,
       FileUploadModule,
+      PaginationModule.forRoot(),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),
@@ -112,8 +119,10 @@ export function tokenGetter() {
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
+      PostsHomeResolver,
       PostsResolver,
       EditPostResolver,
+      PostDetailResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

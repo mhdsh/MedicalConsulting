@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MedicalConsulting.API.Data;
 using MedicalConsulting.API.Dtos;
+using MedicalConsulting.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -59,6 +60,19 @@ namespace MedicalConsulting.API.Controllers
                 return NoContent();
 
             throw new Exception($"Updating user {id} failed on save");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(int id) 
+        {
+            var user = await _repo.GetUser(id);
+            if (user.Username != "admin")
+                _repo.Delete<User>(user);
+
+            if (await _repo.SaveAll())
+              return NoContent();
+
+            throw new Exception($"Deleting post failed");
         }
     }
 }

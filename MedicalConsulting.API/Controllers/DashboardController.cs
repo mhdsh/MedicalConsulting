@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MedicalConsulting.API.Data;
 using MedicalConsulting.API.Dtos;
+using MedicalConsulting.API.Helpers;
 using MedicalConsulting.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,19 @@ namespace MedicalConsulting.API.Controllers
             var postsToReturn = _mapper.Map<IEnumerable<PostToListDto>>(posts);
 
             return Ok(posts);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPostsForPagination([FromQuery]PostParams postParams)
+        {
+            var posts = await _consultingRepo.GetPostsForPagination(postParams);
+
+            var postsToReturn = _mapper.Map<IEnumerable<PostToListDto>>(posts);
+
+            Response.AddPagination(posts.CurrentPage, posts.PageSize, posts.TotalCount, posts.TotalPages);
+
+            return Ok(postsToReturn);
         }
 
         [AllowAnonymous]
