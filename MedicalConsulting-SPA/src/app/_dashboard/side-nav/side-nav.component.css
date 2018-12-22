@@ -6,3 +6,18 @@
   width: 200px;
   box-shadow: 3px 0 6px rgba(0,0,0,.24);
 }
+
+.fix {
+  position: fixed
+}
+
+.loged-out {
+  position: absolute;
+  left: 230px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.loged-out:hover {
+  opacity: 1;
+}

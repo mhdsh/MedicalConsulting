@@ -16,5 +16,9 @@ namespace MedicalConsulting.API.Data
          Task<PagedList<Post>> GetPostsForPagination(PostParams userParams);
          Task<Post> GetPost(int id);
          Task<Photo> GetPhoto(int id);
+         Task<Message> GetMessage(int id);
+         Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
+         Task<IEnumerable<Message>> GetMessageThread(int userId);
+         Task<IEnumerable<Message>> GetMessageThreadForAdmin(int userId);
     }
 }

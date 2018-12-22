@@ -8,8 +8,9 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule } from '@angular/material';
-import {MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -20,13 +21,11 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
-import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { RegisterAdminComponent } from './_dashboard/registerAdmin/registerAdmin.component';
 import { AuthAdminGuard } from './_guards/auth.admin.guard';
 import { UserService } from './_services/user.service';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
@@ -49,6 +48,11 @@ import { PostsHomeResolver } from './_resolvers/posts-home.resolver';
 import { PostDetailResolver } from './_resolvers/post-detail.resolver';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { UsersComponent } from './_dashboard/users/users.component';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MessagesComponent } from './_dashboard/messages/messages.component';
+import { AdminMessagesComponent } from './_dashboard/admin-messages/admin-messages.component';
+import { MemberDetailComponent } from './_dashboard/member-detail/member-detail.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -62,7 +66,6 @@ export function tokenGetter() {
       RegisterComponent,
       MemberListComponent,
       ListsComponent,
-      MessagesComponent,
       RegisterAdminComponent,
       MemberDetailComponent,
       MemberEditComponent,
@@ -76,7 +79,11 @@ export function tokenGetter() {
       PostListComponent,
       PostCardComponent,
       PostDetailComponent,
-      UsersComponent
+      UsersComponent,
+      MemberMessagesComponent,
+      TimeAgoPipe,
+      MessagesComponent,
+      AdminMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -123,6 +130,7 @@ export function tokenGetter() {
       PostsResolver,
       EditPostResolver,
       PostDetailResolver,
+      MessagesResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

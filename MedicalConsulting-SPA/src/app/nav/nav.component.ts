@@ -29,7 +29,7 @@ export class NavComponent implements OnInit {
       if (this.authService.isAdmin()) {
         this.router.navigate(['/dashboard']);
       } else {
-        this.router.navigate(['/members']);
+        this.router.navigate(['/consulting']);
       }
     });
   }

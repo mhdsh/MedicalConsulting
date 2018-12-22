@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -14,5 +16,12 @@ export class SideNavComponent {
     .pipe(
       map(result => result.matches)
     );
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver,
+    private alertify: AlertifyService, private router: Router) {}
+
+  logout() {
+    localStorage.removeItem('token');
+    this.alertify.message('logged out');
+    this.router.navigate(['/home']);
+  }
   }

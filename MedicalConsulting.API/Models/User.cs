@@ -22,5 +22,7 @@ namespace MedicalConsulting.API.Models
         public string photoUrl { get; set; }
         public string PublicIdPhoto { get; set; }
         public ICollection<Post> Posts { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
     }
 }

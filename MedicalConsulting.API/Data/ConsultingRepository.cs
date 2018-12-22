@@ -25,6 +25,55 @@ namespace MedicalConsulting.API.Data
             _context.Remove(entity);
         }
 
+        public Task<Message> GetMessage(int id)
+        {
+            return _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
+        {
+            var messages = _context.Messages
+               .Include(u => u.Sender)
+               .Include(u => u.Recipient)
+               .AsQueryable();
+
+            messages = messages.Where(m => m.Sender.IsAdmin == false);
+            messages = messages.OrderBy(d => d.IsRead).ThenBy(d => d.MessageSent);
+            return await PagedList<Message>.CreateAsync(messages,
+                messageParams.PageNumber, messageParams.PageSize);
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId)
+        {
+            var messages = await _context.Messages
+               .Include(u => u.Sender)
+               .Include(u => u.Recipient)
+               .Where(m => m.RecipientId == userId
+                   && m.RecipientDeleted == false
+                   && (m.Sender.IsAdmin == true)
+                   || m.SenderDeleted == false
+                   && m.SenderId == userId)
+               .OrderBy(m => m.MessageSent)
+               .ToListAsync();
+
+            return messages;
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThreadForAdmin(int userId)
+        {
+            var messages = await _context.Messages
+               .Include(u => u.Sender)
+               .Include(u => u.Recipient)
+               .Where(m => m.RecipientId == userId
+                   && m.RecipientDeleted == false
+                   || m.SenderDeleted == false
+                   && m.SenderId == userId)
+               .OrderBy(m => m.MessageSent)
+               .ToListAsync();
+
+            return messages;
+        }
+
         public async Task<Photo> GetPhoto(int id)
         {
             var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);

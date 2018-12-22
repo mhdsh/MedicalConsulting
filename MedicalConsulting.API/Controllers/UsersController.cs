@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MedicalConsulting.API.Data;
 using MedicalConsulting.API.Dtos;
+using MedicalConsulting.API.Helpers;
 using MedicalConsulting.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace MedicalConsulting.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

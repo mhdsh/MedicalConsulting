@@ -1,12 +1,7 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { MemberListComponent } from './members/member-list/member-list.component';
-import { MessagesComponent } from './messages/messages.component';
-import { ListsComponent } from './lists/lists.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthAdminGuard } from './_guards/auth.admin.guard';
 import { RegisterAdminComponent } from './_dashboard/registerAdmin/registerAdmin.component';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { RegisterComponent } from './register/register.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
@@ -24,6 +19,10 @@ import { PostsHomeResolver } from './_resolvers/posts-home.resolver';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostDetailResolver } from './_resolvers/post-detail.resolver';
 import { UsersComponent } from './_dashboard/users/users.component';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { MessagesComponent } from './_dashboard/messages/messages.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MemberDetailComponent } from './_dashboard/member-detail/member-detail.component';
 
 export const appRoutes: Routes = [
     {path: '', component: PostListComponent, resolve: {posts: PostsHomeResolver}},
@@ -40,6 +39,7 @@ export const appRoutes: Routes = [
             {path: 'register', component: RegisterAdminComponent},
             {path: 'users', component: UsersComponent, resolve: {users: MemberListResolver}},
             {path: 'users/:id', component: MemberDetailComponent, resolve: {user: MemberDetailResolver}},
+            {path: 'consulting', component: MessagesComponent, resolve: {messages: MessagesResolver}}
         ]
     },
     {
@@ -48,7 +48,8 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'member/edit', component: MemberEditComponent,
-                resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]}
+                resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
+            {path: 'consulting', component: MemberMessagesComponent}
         ]
     },
     {path: 'register', component: RegisterComponent},

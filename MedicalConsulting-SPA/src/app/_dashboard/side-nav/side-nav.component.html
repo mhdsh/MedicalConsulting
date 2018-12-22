@@ -8,13 +8,15 @@
     [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">لوحة التحكم</mat-toolbar>
     <mat-nav-list>
+      <a mat-list-item [routerLink]="['/dashboard']" >الرئيسية</a>
       <a mat-list-item [routerLink]="['/dashboard/posts']" >المنشورات</a>
       <a mat-list-item [routerLink]="['/dashboard/users']">المستخدمون</a>
-      <a mat-list-item >الاستشارات</a>
+      <a mat-list-item [routerLink]="['/dashboard/consulting']">الاستشارات</a>
+      <a mat-list-item [routerLink]="['/member/edit']">تعديل الملف الشخصي</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="fix" color="primary">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -24,6 +26,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>المساعد الطبي</span>
+      <a class="loged-out" (click)="logout()">تسجيل الخروج</a>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>

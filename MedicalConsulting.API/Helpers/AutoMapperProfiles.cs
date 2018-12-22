@@ -24,6 +24,8 @@ namespace MedicalConsulting.API.Helpers
             CreateMap<PostForUpdateDto, Post>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<MessageForCreationDto, Message>().ReverseMap();
+            CreateMap<Message, MessageForReturnDto>();
         }
     }
 }
